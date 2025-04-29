@@ -1,2 +1,71 @@
-# spcg-my-gateway
-A simple spring cloud gateway
+# Spring Cloud Gateway - Base Project
+
+This is a base project using **Spring Cloud Gateway**, designed to be the entry point for routing and handling API requests across microservices. It supports dynamic routing, filtering, and resilience patterns such as circuit breakers.
+
+**Official Documentation**  
+https://docs.spring.io/spring-cloud-gateway/reference/index.html
+
+---
+
+## Summary
+
+This project provides a foundational setup for building a centralized API gateway using Spring Cloud Gateway. It enables dynamic and configurable routing to microservices, supports resiliency patterns, and is easily extendable via configuration or code.
+
+---
+
+## Project Features
+
+- Centralized API Gateway for routing
+- Load balancing and filtering support
+- Circuit breaker integration for fault tolerance
+- Extensible and configurable via YAML or Java
+- Easy fallback mechanism
+
+---
+
+## Base Implementation
+
+The image below helps illustrate the flow of the implementation.
+
+![Base Diagram](/docs/base-draw.png)
+
+---
+
+## Add Routes
+
+Define routes in `application.yml`:
+
+```yaml
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: example-service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/example/**
+          filters:
+            - StripPrefix=1
+```
+
+## Project used as Reference ( Spring WebFlux Reactive Databases Example )
+
+This project demonstrates how to build fully reactive backend applications using **Spring WebFlux** with **reactive databases**.
+
+### Features
+
+- Reactive programming with **Spring WebFlux**
+- Integration with:
+    - **MongoDB**
+    - **PostgreSQL**
+    - **Cassandra**
+    - **MySql**
+    - **R2DBC** (Reactive Relational Database Connectivity)
+
+### Project Repository
+
+Check out the full source code and documentation here:
+
+🔗 [ivangfr/spring-webflux-reactive-databases](https://github.com/ivangfr/spring-webflux-reactive-databases)
+
+
