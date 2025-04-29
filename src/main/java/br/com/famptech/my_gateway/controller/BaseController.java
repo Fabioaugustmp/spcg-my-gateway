@@ -13,4 +13,9 @@ public class BaseController {
         return Mono.just("fallback system is down!");
     }
 
+    @RequestMapping("/notifications")
+    public Mono<String> canaryMono() {
+        return Mono.just("This is a canary response!!!");
+    }
+
 }

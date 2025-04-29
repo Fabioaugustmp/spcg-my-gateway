@@ -41,9 +41,19 @@ spring:
           predicates:
             - Path=/messages
             - Method=GET
+            - Weight=resource-group,90
           filters:
             - SetPath=/api/notifications #Route routes on calling
 
+        # Implementation of a canary release
+        - id: messages-routers-canary
+          uri: http://localhost:8080
+          predicates:
+            - Path=/messages
+            - Method=GET
+            - Weight=resource-group,10
+          filters:
+            - SetPath=/notifications #Route routes on calling
 
 management:
   endpoints:
