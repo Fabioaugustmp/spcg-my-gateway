@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: my-gateway
+  cloud:
+    gateway:
+      routes:
+        # Listens to all incoming requests
+        - id: customers-route
+          uri: http://192.168.1.246:9081
+          predicates:
+            - Path=/customers/**
+            - Method=GET,POST,PATCH
+          filters:
+            - PrefixPath=/api
+            - AddResponseHeader=X-Powered-By,Famp Tech
+        # Routes the message to the desired path
+        - id: messages-routers
+          uri: http://192.168.1.246:9083
+          predicates:
+            - Path=/messages
+            - Method=GET
+          filters:
+            - SetPath=/api/notifications #Route routes on calling
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    gateway:
+      access: unrestricted
