@@ -41,7 +41,7 @@ spring:
           predicates:
             - Path=/messages
             - Method=GET
-            - Weight=resource-group,90
+            - Weight=resource-group,99
           filters:
             - SetPath=/api/notifications #Route routes on calling
 
@@ -51,7 +51,7 @@ spring:
           predicates:
             - Path=/messages
             - Method=GET
-            - Weight=resource-group,10
+            - Weight=resource-group,1
           filters:
             - SetPath=/notifications #Route routes on calling
 
