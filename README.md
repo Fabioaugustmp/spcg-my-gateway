@@ -23,6 +23,10 @@ This project provides a foundational setup for building a centralized API gatewa
 
 ---
 
+## How to run
+
+For more detailed information on how to run this application please [click here!](HELP.md)
+
 ## Base Implementation
 
 The image below helps illustrate the flow of the implementation.
@@ -67,5 +71,4 @@ This project demonstrates how to build fully reactive backend applications using
 Check out the full source code and documentation here:
 
 🔗 [ivangfr/spring-webflux-reactive-databases](https://github.com/ivangfr/spring-webflux-reactive-databases)
-
 
