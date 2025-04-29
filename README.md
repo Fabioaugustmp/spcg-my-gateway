@@ -23,6 +23,14 @@ This project provides a foundational setup for building a centralized API gatewa
 
 ---
 
+## Collection to be imported
+
+If you want to use the api postman collection [PostmanCollection](/docs/SPCG-MyGateway.postman_collection.json)
+- Download It
+- Import into your Postman
+- Set the Global Environment Variable (baseURL) -> To your local gateway
+- And use it!
+
 ## How to run
 
 For more detailed information on how to run this application please [click here!](HELP.md)

@@ -1,6 +1,55 @@
 spring:
   application:
     name: my-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: product-routes
+          uri: http://192.168.1.246:9080 #Lb -> Service Discovery (name)
+          predicates: #Orientação da chamada
+            - Path=/products/**
+#            - Method=GET
+          filters:
+            - PrefixPath=/api
+
+        # Listens to all incoming requests
+        - id: customers-route
+          uri: http://192.168.1.246:9081
+          predicates:
+            - Path=/customers/**
+            - Method=GET,POST,PATCH
+          filters:
+            - PrefixPath=/api
+            - AddResponseHeader=X-Powered-By,Famp Tech
+            - name: CircuitBreaker
+              args:
+                name: customersCircuitBreaker
+                fallbackUri: forward:/fallback
+
+        - id: notifications-routers
+          uri: http://192.168.1.246:9083
+          predicates:
+            - Path=/notifications/**
+          filters:
+            - PrefixPath=/api
+
+        - id: message-routers
+          uri: http://192.168.1.246:9083
+          predicates:
+            - Path=/messages
+            - Method=GET
+            - Weight=resource-group,50
+          filters:
+            - SetPath=/api/notifications
+
+        - id: messages-routers-canary
+          uri: http://localhost:8080
+          predicates:
+            - Path=/messages
+            - Method=GET
+            - Weight=resource-group,50
+          filters:
+            - SetPath=/notifications
 
 management:
   endpoints:
