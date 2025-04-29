@@ -1,59 +1,6 @@
 spring:
   application:
     name: my-gateway
-  cloud:
-    gateway:
-      routes:
-        # This is the routes products
-        - id: product-routes
-          uri: http://192.168.1.246:9080
-          predicates:
-            - Path=/products/**
-            - Method=GET,POST,PATCH,DELETE
-          filters:
-            - PrefixPath=/api
-
-        # Listens to all incoming requests
-        - id: customers-route
-          uri: http://192.168.1.246:9081
-          predicates:
-            - Path=/customers/**
-            - Method=GET,POST,PATCH
-          filters:
-            - PrefixPath=/api
-            - AddResponseHeader=X-Powered-By,Famp Tech
-            - name: CircuitBreaker
-              args:
-                name: customersCircuitBreaker
-                fallbackUri: forward:/fallback
-
-        - id: notifications-routes
-          uri: http://192.168.1.246:9083
-          predicates:
-            - Path=/notifications/**
-            - Method=GET,POST
-          filters:
-            - PrefixPath=/api
-
-        # Routes the message to the desired path
-        - id: messages-routers
-          uri: http://192.168.1.246:9083
-          predicates:
-            - Path=/messages
-            - Method=GET
-            - Weight=resource-group,99
-          filters:
-            - SetPath=/api/notifications #Route routes on calling
-
-        # Implementation of a canary release
-        - id: messages-routers-canary
-          uri: http://localhost:8080
-          predicates:
-            - Path=/messages
-            - Method=GET
-            - Weight=resource-group,1
-          filters:
-            - SetPath=/notifications #Route routes on calling
 
 management:
   endpoints:
